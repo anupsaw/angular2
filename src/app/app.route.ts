@@ -1,0 +1,12 @@
+// import { Routes } from '@angular/router';
+// import { UserComponent } from './RoutingComponents/user/user.Component';
+
+
+
+// export const appRoutes: Routes = [{
+//     path: 'user', component: UserComponent
+// }, {
+//     path: '',
+//     redirectTo: '/user',
+//     pathMatch: 'full'
+// }];

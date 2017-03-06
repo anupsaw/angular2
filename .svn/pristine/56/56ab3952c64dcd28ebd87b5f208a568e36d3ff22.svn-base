@@ -1,0 +1,82 @@
+<form name="user" #userForm="ngForm" (submit)=saveAndNext(userForm) novalidate>
+    {{diagnostic}}
+    <div class="col-md-10">
+        <div class='panel panel-default '>
+            <div class='panel panel-heading'>User Details</div>
+            <div class='panel-body'>
+                <div class="form-horizontal">
+                    <!--email-->
+                    <div class='form-group'>
+                        <div class="col-md-12">
+                            <label class='form-label' for="email">Email:</label>
+                        </div>
+                        <div class='col-md-12'>
+                            <input type='email' class='form-control' id="email" name="emailid" [(ngModel)]="user.emailId"/>
+
+                            <!--<div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                                email is not valid
+                            </div>-->
+                        </div>
+                    </div>
+                    <!--end-->
+                    <!--First Name-->
+                    <div class='form-group'>
+                        <div class="col-md-6">
+                            <div>
+                                <label class='control-label'>First Name:</label>
+                            </div>
+                            <div>
+                                <input type='text' class='form-control' name="firstName" [(ngModel)]="user.firstName" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <label class='control-label'>Last Name:</label>
+                            </div>
+                            <div>
+                                <input type='text' class='form-control' name="lastName" [(ngModel)]="user.lastName" />
+                            </div>
+                        </div>
+                    </div>
+                    <!--end-->
+                    <!--username-->
+                    <div class='form-group'>
+                        <div class='col-md-12'>
+                            <label class='control-label'>Username</label>
+                        </div>
+                        <div class='col-md-12'>
+                            <input type='text' class='form-control' name="userName" [(ngModel)]="user.userName" />
+                        </div>
+                    </div>
+                    <!--password-->
+                    <div class='form-group'>
+                        <div class="col-md-6">
+                            <div>
+                                <label class='control-label'>Password:</label>
+                            </div>
+                            <div>
+                                <input type='text' class='form-control' name="password" [(ngModel)]="user.password" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <label class='control-label'>Confirm password:</label>
+                            </div>
+                            <div>
+                                <input type='text' class='form-control' name="confirmPassword" [(ngModel)]="user.confirmPassword" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-2">
+        <div class='form-group'>
+            <input type="submit" class='form-control btn btn-primary' value="Save & Next >>" />
+        </div>
+    </div>
+</form>

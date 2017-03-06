@@ -1,0 +1,6 @@
+<ul class="nav nav-sidebar">
+    <li routerLinkActive="active" *ngFor = "let user of usersList; let i = index;">
+        <a href="#" [routerLink]="['/user', user.id]">{{user.firstName + ' ' + user.lastName}}</a>
+    </li>
+
+</ul>

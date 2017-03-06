@@ -1,0 +1,79 @@
+<form name="address" #user="ngForm" (submit)=logForm(address)>
+    <div class="col-md-10">
+        <div class='panel panel-default'>
+            <div class='panel panel-heading'>Address Details</div>
+            <div class='panel-body'>
+                <div class="form-horizontal" ngModelGroup ="address">
+                    <!--Address Line 1-->
+                    <div class='form-group'>
+                        <div class="col-md-12">
+                            <label class='form-label'>Address Line 1:</label>
+                        </div>
+                        <div class='col-md-12'>
+                            <input type='text' class='form-control' name="addressLine1" ngModel/>
+                        </div>
+                    </div>
+                    <!--end-->
+
+                    <!--Address Line 1-->
+                    <div class='form-group'>
+                        <div class="col-md-12">
+                            <label class='form-label'>Address Line 2:</label>
+                        </div>
+                        <div class='col-md-12'>
+                            <input type='text' class='form-control'  name="addressLine2" ngModel />
+                        </div>
+                    </div>
+                    <!--end-->
+
+                    <!--Address Line 1-->
+                    <div class='form-group'>
+                        <div class="col-md-12">
+                            <label class='form-label'>Country:</label>
+                        </div>
+                        <div class='col-md-12'>
+                            <input type='text' class='form-control' name="country" ngModel />
+                        </div>
+                    </div>
+                    <!--end-->
+                    <!--address-->
+                    <div class='form-group'>
+                        <div class="col-md-6">
+                            <div>
+                                <label class='control-label'>City:</label>
+                            </div>
+                            <div>
+                                <input type='text' class='form-control' name="city" ngModel />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <label class='control-label'>Zip Code:</label>
+                            </div>
+                            <div>
+                                <input type='text' class='form-control' name="zipCode" ngModel />
+                            </div>
+                        </div>
+                    </div>
+                    <!--end-->
+
+                    <div class='form-group'>
+                        <div class='col-md-12'>
+                            <label class='control-label'>Phone Number:</label>
+                        </div>
+                        <div class='col-md-12'>
+                            <input type='text' class='form-control' name="phoneNumber" ngModel />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class='form-group'>
+            <input type="submit" class='form-control btn btn-primary' value="Save & Next >>" />
+        </div>
+    </div>
+</form>

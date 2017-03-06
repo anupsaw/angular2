@@ -1,0 +1,81 @@
+<form name="work" #user="ngForm" (submit)=logForm(work)>
+    <div class="col-md-10">
+        <div class='panel panel-default'>
+            <div class='panel panel-heading'>Company Details</div>
+            <div class='panel-body'>
+                <div class="form-horizontal" ngModelGroup="work">
+                    <!--email-->
+                    <div class='form-group'>
+                        <div class="col-md-12">
+                            <label class='form-label'>Company Name:</label>
+                        </div>
+                        <div class='col-md-12'>
+                            <input type='email' class='form-control' name="companyName" ngModel />
+                        </div>
+                    </div>
+                    <!--end-->
+
+                    <!--email-->
+                    <div class='form-group'>
+                        <div class="col-md-12">
+                            <label class='form-label'>Job Title:</label>
+                        </div>
+                        <div class='col-md-12'>
+                            <input type='email' class='form-control' name="jobTitle" ngModel  />
+                        </div>
+                    </div>
+                    <!--end-->
+
+                    <!--email-->
+                    <div class='form-group'>
+                        <div class="col-md-12">
+                            <label class='form-label'>Job Role:</label>
+                        </div>
+                        <div class='col-md-12'>
+                            <input type='email' class='form-control' name="jobRole" ngModel/>
+                        </div>
+                    </div>
+                    <!--end-->
+
+                    <!--email-->
+                    <div class='form-group'>
+                        <div class="col-md-12">
+                            <label class='form-label'>Company Size:</label>
+                        </div>
+                        <div class='col-md-12'>
+                            <input type='email' class='form-control' name="companySize" ngModel />
+                        </div>
+                    </div>
+                    <!--end-->
+                    <!--First Name-->
+                    <div class='form-group'>
+                        <div class="col-md-6">
+                            <div>
+                                <label class='control-label'>City:</label>
+                            </div>
+                            <div>
+                                <input type='text' class='form-control' name="companyCity" ngModel  />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <label class='control-label'>Zip Code:</label>
+                            </div>
+                            <div>
+                                <input type='text' class='form-control' name="companyZip" ngModel/>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end-->
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class='form-group'>
+            <input type="submit" class='form-control btn btn-primary' value="Save & Next >>"  />
+        </div>
+    </div>
+</form>

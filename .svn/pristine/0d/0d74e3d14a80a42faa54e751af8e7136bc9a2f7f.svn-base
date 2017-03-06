@@ -1,0 +1,94 @@
+"use strict";
+var _ = require('lodash');
+var DataService = (function () {
+    function DataService() {
+        this._userData = [];
+        this._workData = [];
+        this._addData = [];
+        this.userData = {};
+    }
+    DataService.prototype.setKey = function (entity) {
+        return this._id + '::' + entity;
+    };
+    // saveUser(user: any) {
+    //     //this.save('userList', user);
+    //     this._userData.push(user);
+    // }
+    // saveWork(work: any) {
+    //     this.save(this.setKey('work'), work);
+    // }
+    // saveAdd(add: any) {
+    //     this.save(this.setKey('add'), add);
+    // }
+    DataService.prototype.save = function (type, data) {
+        try {
+            var existData = this.fetch(type);
+            existData = _.isEmpty(existData) ? [] : existData;
+            existData.push(data);
+            this.setLocalStorage(type, existData);
+            return true;
+        }
+        catch (error) {
+            console.error(error);
+            return false;
+        }
+    };
+    DataService.prototype.fetch = function (type, key) {
+        if (key === void 0) { key = 0; }
+        try {
+            var dataObj = this.getFromLocalStorage(type);
+            dataObj = key === 0 ? dataObj : _.find(dataObj, function (item) { return item.id === key; });
+            return dataObj;
+        }
+        catch (error) {
+            console.error(error);
+            return false;
+        }
+    };
+    DataService.prototype.update = function (type, key, data) {
+        if (key === void 0) { key = 0; }
+        try {
+            if (!type)
+                throw new Error('entity name is not provided.');
+            if (!key)
+                throw new Error('user id is not provided.');
+            var existData = this.fetch(type);
+            _.find(existData, function (item, index, self) {
+                if (item.id === key) {
+                    self.splice(index, 1, data);
+                }
+            });
+            this.setLocalStorage(type, existData);
+            return true;
+        }
+        catch (error) {
+            console.error(error);
+            return false;
+        }
+    };
+    DataService.prototype.setLocalStorage = function (key, data) {
+        localStorage.setItem(key, JSON.stringify(data));
+    };
+    DataService.prototype.getFromLocalStorage = function (key) {
+        if (!key) {
+            throw new Error("Key is not provided");
+        }
+        else {
+            var data = localStorage.getItem(key);
+            return _.isEmpty(data) ? null : JSON.parse(data);
+        }
+    };
+    DataService.prototype.generateId = function (id) {
+        if (id === void 0) { id = undefined; }
+        if (id === undefined || isNaN(id) || id === 0) {
+            this._id = new Date().getTime();
+        }
+        else {
+            this._id = id;
+        }
+        return this._id;
+    };
+    return DataService;
+}());
+exports.DataService = DataService;
+//# sourceMappingURL=dataService.js.map

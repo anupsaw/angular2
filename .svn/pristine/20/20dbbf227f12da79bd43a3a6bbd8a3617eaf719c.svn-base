@@ -1,0 +1,1 @@
+npm install @types/lodash@ts2.0 --save-dev --save-exact

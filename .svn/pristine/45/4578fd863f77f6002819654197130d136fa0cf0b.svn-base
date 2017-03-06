@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs">
+  <li role="presentation" routerLinkActive="active"><a href="#" [routerLink]="['/user', 0]">User Info</a></li>
+  <li role="presentation" routerLinkActive="active"><a href="#" [routerLink]="['/work', 0]">Work Info</a></li>
+  <li role="presentation" routerLinkActive="active"><a href="#" [routerLink]="['/address', 0]">Address Info</a></li>
+</ul>
