@@ -1,5 +1,7 @@
 import * as _ from 'lodash';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/Observable/of';
 
 export class DataService {
 
@@ -30,17 +32,17 @@ export class DataService {
     }
 
 
-    public fetch(type: string, key: number = 0) {
-        try {
+    public fetch(type: string, key: number = 0): Observable<any> {
+        //try {
 
-            let dataObj = this.getFromLocalStorage(type);
-            dataObj = key === 0 ? dataObj : _.find(dataObj, (item: any) => { return item.id === key });
-            return dataObj;
+        let dataObj = this.getFromLocalStorage(type);
+        dataObj = key === 0 ? dataObj : _.find(dataObj, (item: any) => { return item.id === key });
+        return of(dataObj);
 
-        } catch (error) {
-            console.error(error);
-            return false;
-        }
+        // } catch (error) {
+        // console.error(error);
+        // return false;
+        // }
     }
 
     public update(type: string, data: any) {
@@ -49,20 +51,22 @@ export class DataService {
             if (!type) throw new Error('entity name is not provided.');
             if (!data.id) throw new Error('user id is not provided.');
 
-            let existData = this.fetch(type);
+            let existData = this.fetch(type).subscribe((existData: any) => {
+                _.find(existData, (item: any, index: number, self: Array<any>) => {
+                    if (item.id === data.id) {
+                        self.splice(index, 1, data);
+                        res = true;
+                    }
+                });
 
-            _.find(existData, (item: any, index: number, self: Array<any>) => {
-                if (item.id === data.id) {
-                    self.splice(index, 1, data);
-                    res = true;
+                if (!res) {
+                    existData = _.isEmpty(existData) ? [] : existData;
+                    existData.push(data);
+                    this.userSubject.next(existData);
                 }
+
             });
 
-            if (!res) {
-                existData = _.isEmpty(existData) ? [] : existData;
-                existData.push(data);
-                this.userSubject.next(existData);
-            }
 
             this.setLocalStorage(type, existData);
             return true;

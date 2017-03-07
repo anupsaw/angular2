@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 
 
 
+
 @Component({
     selector: 'side-bar',
     templateUrl: 'app/side-bar/side-bar.tpl.html'
@@ -23,11 +24,14 @@ export class SideBarComponent {
 
     }
 
-ngOnInit(){
-  // this.usersList =  this._dataService.fetch('user');
+    ngOnInit() {
+        this._dataService.fetch('user').subscribe((userList: any) => {
+            this.usersList = userList;
+            this._dataService.userSubject.subscribe((userList: any) => { this.usersList = userList; })
+        })
 
-  this._dataService.userSubject.subscribe((userList:any) => {this.usersList = userList;})
-}
+        
+    }
 
 
 }

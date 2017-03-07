@@ -26,8 +26,9 @@ export class WorkComponent {
     ngOnInit() {
         this._routeData.params.subscribe((work: WorkModel) => {
 
-            let data = this._dataService.fetch('work', +work.id);
-            if (!_.isEmpty(data)) this.work = data;
+            this._dataService.fetch('user', +work.id).subscribe((workData: any) => {
+                if (!_.isEmpty(workData)) { this.work = workData; }
+            });
             this.work.id = +work.id;
         })
 
@@ -37,7 +38,7 @@ export class WorkComponent {
     saveAndNext(model: any) {
         console.log(model);
         let res = this._dataService.save('work', model.work);
-        if (res) this._route.navigate(['/address', model.work.id ]);
+        if (res) this._route.navigate(['/address', model.work.id]);
     }
 }
 

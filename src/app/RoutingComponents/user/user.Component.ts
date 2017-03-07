@@ -25,10 +25,13 @@ export class UserComponent {
     ngOnInit() {
         this._routeData.params.subscribe((user: UserModel) => {
             let id = this._dataService.generateId(+user.id);
-            let data = this._dataService.fetch('user', id);
-            if (!_.isEmpty(data)) { this.user = data; }
-            this.id = id;
-            this.user.id = id;
+            this._dataService.fetch('user', id).subscribe((user: any) => {
+                if (!_.isEmpty(user)) { this.user = user; }
+                this.id = id;
+                this.user.id = id;
+            });
+
+
         })
 
     }

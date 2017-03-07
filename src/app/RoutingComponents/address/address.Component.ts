@@ -23,10 +23,10 @@ export class AddressComponent {
 
     ngOnInit() {
         this._routeData.params.subscribe((add: AddressModel) => {
-            //let id = this._dataService.generateId();
-            let data = this._dataService.fetch('add', add.id);
-            if (!_.isEmpty(data)) this.address = data;
-            this.address.id = add.id;
+             this._dataService.fetch('user', +add.id).subscribe((addData: any) => {
+                if (!_.isEmpty(addData)) { this.address = addData; }
+            });
+           this.address.id = add.id;
         })
 
     }
