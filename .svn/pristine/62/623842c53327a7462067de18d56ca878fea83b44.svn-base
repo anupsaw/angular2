@@ -11,29 +11,25 @@ import * as _ from 'lodash';
 export class UserComponent {
 
     //use of templated form
+    public user: UserModel = new UserModel();
 
-    public user: UserModel
     private id: number;
     constructor(private _route: Router,
         private _dataService: DataService,
         private _routeData: ActivatedRoute
     ) {
 
-        this.user = new UserModel();
+
     }
 
     ngOnInit() {
         this._routeData.params.subscribe((user: UserModel) => {
             let id = this._dataService.generateId(+user.id);
-            if (+user.id === 0) {
-                this.user = new UserModel();
-            } else {
-                this._dataService.fetch('user', id).subscribe((user: any) => {
-                    if (!_.isEmpty(user)) { this.user = user; }
-                });
-            }
-            this.id = id;
-            this.user.id = id;
+            this._dataService.fetch('user', id).subscribe((user: any) => {
+                if (!_.isEmpty(user)) { this.user = user; }
+                this.id = id;
+                this.user.id = id;
+            });
 
 
         })

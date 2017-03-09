@@ -1,0 +1,87 @@
+"use strict";
+var _ = require('lodash');
+var Subject_1 = require('rxjs/Subject');
+var of_1 = require('rxjs/Observable/of');
+var DataService = (function () {
+    function DataService() {
+        this.userSubject = new Subject_1.Subject();
+    }
+    DataService.prototype.setKey = function (entity) {
+        return this._id + '::' + entity;
+    };
+    DataService.prototype.save = function (type, data) {
+        try {
+            this.update(type, data);
+            return true;
+        }
+        catch (error) {
+            console.error(error);
+            return false;
+        }
+    };
+    DataService.prototype.fetch = function (type, key) {
+        //try {
+        if (key === void 0) { key = 0; }
+        var dataObj = this.getFromLocalStorage(type);
+        dataObj = key === 0 ? dataObj : _.find(dataObj, function (item) { return item.id === key; });
+        return of_1.of(dataObj);
+        // } catch (error) {
+        // console.error(error);
+        // return false;
+        // }
+    };
+    DataService.prototype.update = function (type, data) {
+        var _this = this;
+        try {
+            var res_1 = false;
+            if (!type)
+                throw new Error('entity name is not provided.');
+            if (!data.id)
+                throw new Error('user id is not provided.');
+            var existData = this.fetch(type).subscribe(function (existData) {
+                _.find(existData, function (item, index, self) {
+                    if (item.id === data.id) {
+                        self.splice(index, 1, data);
+                        res_1 = true;
+                    }
+                });
+                if (!res_1) {
+                    existData = _.isEmpty(existData) ? [] : existData;
+                    existData.push(data);
+                    _this.userSubject.next(existData);
+                }
+            });
+            this.setLocalStorage(type, existData);
+            return true;
+        }
+        catch (error) {
+            console.error(error);
+            return false;
+        }
+    };
+    DataService.prototype.setLocalStorage = function (key, data) {
+        localStorage.setItem(key, JSON.stringify(data));
+    };
+    DataService.prototype.getFromLocalStorage = function (key) {
+        if (!key) {
+            throw new Error("Key is not provided");
+        }
+        else {
+            var data = localStorage.getItem(key);
+            return _.isEmpty(data) ? null : JSON.parse(data);
+        }
+    };
+    DataService.prototype.generateId = function (id) {
+        if (id === void 0) { id = undefined; }
+        if (id === undefined || isNaN(id) || id === 0) {
+            this._id = new Date().getTime();
+        }
+        else {
+            this._id = id;
+        }
+        return this._id;
+    };
+    return DataService;
+}());
+exports.DataService = DataService;
+//# sourceMappingURL=dataService.js.map
