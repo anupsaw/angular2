@@ -12,7 +12,7 @@ export class DataService {
     private _workData: Array<any> = [];
     private _addData: Array<any> = [];
 
-    private turnLocalStorageOn = false;
+    private turnLocalStorageOn = true;
 
     constructor() {
 
@@ -35,15 +35,15 @@ export class DataService {
     getLocalData(type) {
 
         if (type === 'user') { return this._userData; }
-        else if (type === 'user') { return this._workData; }
-        else if (type === 'user') { return this._addData; }
+        else if (type === 'work') { return this._workData; }
+        else if (type === 'address') { return this._addData; }
 
     }
 
     setLocalData(type, data) {
         if (type === 'user') { this._userData = data; }
-        else if (type === 'user') { this._workData = data; }
-        else if (type === 'user') { this._addData = data; }
+        else if (type === 'work') { this._workData = data; }
+        else if (type === 'address') { this._addData = data; }
     }
 
 
@@ -75,7 +75,7 @@ export class DataService {
                     }
                 });
 
-                if (!res) {                   
+                if (!res) {
                     existData.push(data);
                 }
 
@@ -84,7 +84,7 @@ export class DataService {
             if (this.turnLocalStorageOn) this.setLocalStorage(type, existData);
             if (!this.turnLocalStorageOn) this.setLocalData(type, existData);
 
-            this.userSubject.next(existData);
+            if (type === 'user') this.userSubject.next(existData);
             return true;
 
         } catch (error) {

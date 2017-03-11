@@ -1,16 +1,16 @@
-<form name="address" #user="ngForm" (submit)=logForm(address)>
+<form name="address" #addressForm  (submit)="saveAndNext(address)" [formGroup]="address">
     <div class="col-md-10">
         <div class='panel panel-default'>
             <div class='panel panel-heading'>Address Details</div>
             <div class='panel-body'>
-                <div class="form-horizontal" ngModelGroup ="address">
+                <div class="form-horizontal">
                     <!--Address Line 1-->
                     <div class='form-group'>
                         <div class="col-md-12">
                             <label class='form-label'>Address Line 1:</label>
                         </div>
                         <div class='col-md-12'>
-                            <input type='text' class='form-control' name="addressLine1" ngModel/>
+                            <input type='text' class='form-control' name="addressLine1" formControlName="addressLine1" />
                         </div>
                     </div>
                     <!--end-->
@@ -21,7 +21,7 @@
                             <label class='form-label'>Address Line 2:</label>
                         </div>
                         <div class='col-md-12'>
-                            <input type='text' class='form-control'  name="addressLine2" ngModel />
+                            <input type='text' class='form-control'  name="addressLine2" formControlName="addressLine2" />
                         </div>
                     </div>
                     <!--end-->
@@ -32,18 +32,18 @@
                             <label class='form-label'>Country:</label>
                         </div>
                         <div class='col-md-12'>
-                            <input type='text' class='form-control' name="country" ngModel />
+                            <input type='text' class='form-control' name="country" formControlName="country" />
                         </div>
                     </div>
                     <!--end-->
                     <!--address-->
-                    <div class='form-group'>
+                    <div class='form-group' >
                         <div class="col-md-6">
                             <div>
                                 <label class='control-label'>City:</label>
                             </div>
                             <div>
-                                <input type='text' class='form-control' name="city" ngModel />
+                                <input type='text' class='form-control' name="city" formControlName="city" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -51,7 +51,7 @@
                                 <label class='control-label'>Zip Code:</label>
                             </div>
                             <div>
-                                <input type='text' class='form-control' name="zipCode" ngModel />
+                                <input type='text' class='form-control' name="zipCode" formControlName="zipCode" />
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                             <label class='control-label'>Phone Number:</label>
                         </div>
                         <div class='col-md-12'>
-                            <input type='text' class='form-control' name="phoneNumber" ngModel />
+                            <input type='text' class='form-control' name="phoneNumber" formControlName="phoneNumber"/>
                         </div>
                     </div>
                 </div>
