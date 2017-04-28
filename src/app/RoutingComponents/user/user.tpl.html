@@ -1,3 +1,6 @@
+form value : {{userForm.value | json}}
+form status : {{userForm.valid}}
+
 <form name="user" #userForm="ngForm" (submit)=saveAndNext(userForm) novalidate>
     {{diagnostic}}
     <div class="col-md-10">
@@ -11,11 +14,10 @@
                             <label class='form-label' for="email">Email:</label>
                         </div>
                         <div class='col-md-12'>
-                            <input type='email' class='form-control' id="email" name="emailid" [(ngModel)]="user.emailId"/>
-
-                            <!--<div [hidden]="email.valid || email.pristine" class="alert alert-danger">
-                                email is not valid
-                            </div>-->
+                            <input type='email' class='form-control' required id="email" #email="ngModel" name="emailid" [(ngModel)]="user.emailId" />
+                        </div>
+                        <div [hidden]="email.valid || email.pristine" class="has-error">
+                            email is not valid
                         </div>
                     </div>
                     <!--end-->
@@ -70,13 +72,12 @@
                 </div>
 
             </div>
-
         </div>
     </div>
 
     <div class="col-md-2">
         <div class='form-group'>
-            <input type="submit" class='form-control btn btn-primary' value="Save & Next >>" />
+            <input type="submit" class='form-control btn btn-primary' [disabled] = "userForm.valid"  value="Save & Next >>" />
         </div>
     </div>
 </form>

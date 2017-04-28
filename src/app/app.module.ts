@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 //services
 import { DataService } from './global-services/dataService';
+import { DataServerService } from './global-services/dataServerService';
 //routes
 //import { appRoutes } from './app.route';
 
@@ -36,9 +38,9 @@ const appRoutes: Routes = [{
 
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(appRoutes)],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule,HttpModule, RouterModule.forRoot(appRoutes)],
   declarations: [AppComponent, MainHeaderComponent, SideBarComponent, HeadBarComponent, HomeComponent, UserComponent, WorkComponent, AddressComponent],
-  providers: [DataService],
+  providers: [DataService, DataServerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

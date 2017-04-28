@@ -10,10 +10,8 @@ import * as _ from 'lodash';
 
 export class WorkComponent {
 
-    //use of reactive Form : FornGroup
 
-
-
+    public id: number;
     public work = new FormGroup({
         companyName: new FormControl(),
         jobTitle: new FormControl(),
@@ -23,9 +21,9 @@ export class WorkComponent {
             city: new FormControl(),
             zipCode: new FormControl()
         }),
-        id:new FormControl()
+        id: new FormControl()
     })
-    public id: number;
+
 
     constructor(private _route: Router,
         private _dataService: DataService,
@@ -37,13 +35,11 @@ export class WorkComponent {
 
     ngOnInit() {
         this._routeData.params.subscribe((work: WorkModel) => {
-
             this._dataService.fetch('work', +work.id).subscribe((workData: any) => {
                 if (!_.isEmpty(workData)) { this.work.patchValue(workData); }
             });
             this.id = +work.id;
         })
-
     }
 
 
@@ -56,13 +52,13 @@ export class WorkComponent {
 }
 
 export class WorkModel {
-        public companyName: string;
-        public jobTitle: string;
-        public companySize: string;
-        public companyCity: string;
-        public companyZip: number;
-        public jobRole: string;
-        public id: number;
+    public companyName: string;
+    public jobTitle: string;
+    public companySize: string;
+    public companyCity: string;
+    public companyZip: number;
+    public jobRole: string;
+    public id: number;
     constructor(
 
     ) {

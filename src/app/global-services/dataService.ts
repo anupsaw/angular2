@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 
 export class DataService {
 
-    private _id: number;
+    public _id: number = 0;
     public userSubject = new Subject<any>();
     private _userData: Array<any> = [];
     private _workData: Array<any> = [];

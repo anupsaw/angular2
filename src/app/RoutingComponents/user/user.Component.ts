@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../../global-services/dataService';
 import * as _ from 'lodash';
+import { DataServerService } from '../../global-services/dataServerService';
 
 @Component({
     templateUrl: 'app/RoutingComponents/user/user.tpl.html'
@@ -16,7 +17,8 @@ export class UserComponent {
     private id: number;
     constructor(private _route: Router,
         private _dataService: DataService,
-        private _routeData: ActivatedRoute
+        private _routeData: ActivatedRoute,
+        private dataService:DataServerService
     ) {
 
         this.user = new UserModel();
@@ -44,7 +46,9 @@ export class UserComponent {
 
     saveAndNext() {
         console.log(this.user);
-        let res = this._dataService.save('user', this.user);
+        //let res = this._dataService.save('user', this.user);
+        let res;
+        this.dataService.postData('user', this.user).subscribe(data => console.log(data));
         if (res) this._route.navigate(['/work', this.user.id]);
     }
 }
