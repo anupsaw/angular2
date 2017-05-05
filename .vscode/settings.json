@@ -9,5 +9,6 @@
         "**/*.js.map": {
             "when": "$(basename)"
         }
-    }
-    }
+    },
+    "vsicons.presets.angular": true
+}

@@ -4,6 +4,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 var curd = require('./server-CRUD.js');
+var fsapi = require('./server-file-system.js');
 
 
 var app = express();
@@ -30,7 +31,24 @@ app.get('/node_modules/*', function (req, res) {
 
 })
 
-app.use('/api', curd);
+
+
+//app.use('/api', curd);
+app.use('/api', fsapi);
+
+app.get('/*', function (req, res) {
+
+    console.log('I am here');
+    res.sendFile('/index.html');
+
+})
+
+app.get('/**/*', function (req, res) {
+
+    console.log('I am here');
+    res.sendFile('/index.html');
+
+})
 
 // app.post('/api/:entity/:id', curd.post(req, res, next));
 // app.put('/api/:entity/:id', curd.put(req, res, next));
