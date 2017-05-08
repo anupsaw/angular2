@@ -4,6 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
+// custom modules
+import { AppRootRoutingComponent, AppRootRoutingModule } from './app.route.module'
+
 //services
 import { DataService } from './global-services/dataService';
 import { DataServerService } from './global-services/dataServerService';
@@ -14,32 +17,16 @@ import { AppComponent } from './app.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { HeadBarComponent } from './head-bar/head-bar.component';
 import { MainHeaderComponent } from './main-header/main-header.component';
-import { HomeComponent } from './RoutingComponents/home/home.Component';
-import { UserComponent } from './RoutingComponents/user/user.Component';
-import { WorkComponent } from './RoutingComponents/work/work.Component';
-import { AddressComponent } from './RoutingComponents/address/address.Component';
+import {AppGridComponent} from './grid/grid.component';
 
 
-const appRoutes: Routes = [{
-  path: 'home', component: HomeComponent
-}, {
-  path: 'user/:id', component: UserComponent
-},
-{
-  path: 'address/:id', component: AddressComponent
-},
-{
-  path: 'work/:id', component: WorkComponent
-}, {
-  path: '',
-  redirectTo: '/home',
-  pathMatch: 'full'
-}];
+
+
 
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule,HttpModule, RouterModule.forRoot(appRoutes)],
-  declarations: [AppComponent, MainHeaderComponent, SideBarComponent, HeadBarComponent, HomeComponent, UserComponent, WorkComponent, AddressComponent],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, AppRootRoutingModule],
+  declarations: [AppComponent, MainHeaderComponent, SideBarComponent, HeadBarComponent, AppGridComponent, AppRootRoutingComponent],
   providers: [DataService, DataServerService],
   bootstrap: [AppComponent]
 })

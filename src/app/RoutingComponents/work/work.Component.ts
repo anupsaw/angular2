@@ -1,8 +1,22 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DataService } from '../../global-services/dataService';
+import { DataServerService } from '../../global-services/dataServerService';
 import * as _ from 'lodash';
+
+
+function validateZipCode(c: AbstractControl): { [key: string]: boolean } | null {
+
+    if (c.value !== undefined && isNaN(c.value)) {
+        return { 'zip': true };
+    }
+
+    return null;
+
+
+}
+
 
 @Component({
     templateUrl: 'app/RoutingComponents/work/work.tpl.html'
@@ -13,13 +27,13 @@ export class WorkComponent {
 
     public id: number;
     public work = new FormGroup({
-        companyName: new FormControl(),
+        companyName: new FormControl('', Validators.required),
         jobTitle: new FormControl(),
         jobRole: new FormControl(),
         companySize: new FormControl(),
         companyAddress: new FormGroup({
-            city: new FormControl(),
-            zipCode: new FormControl()
+            city: new FormControl('', Validators.required),
+            zipCode: new FormControl('', [Validators.required, Validators.maxLength(6),Validators.minLength(5), validateZipCode])
         }),
         id: new FormControl()
     })
@@ -27,7 +41,8 @@ export class WorkComponent {
 
     constructor(private _route: Router,
         private _dataService: DataService,
-        private _routeData: ActivatedRoute
+        private _routeData: ActivatedRoute,
+        private dataService:DataServerService
     ) {
 
     }
@@ -44,9 +59,7 @@ export class WorkComponent {
 
 
     saveAndNext(model: any) {
-        console.log(model);
-        model.value.id = this.id;
-        let res = this._dataService.save('work', model.value);
+        let res = this._dataService.save('work', this.work.value);
         if (res) this._route.navigate(['/address', this.id]);
     }
 }

@@ -1,16 +1,17 @@
-<form #workForm  (submit)=saveAndNext(work) [formGroup] = "work" novalidate>
+<form (submit)=saveAndNext(work) [formGroup]="work" novalidate>
     <div class="col-md-10">
         <div class='panel panel-default'>
             <div class='panel panel-heading'>Company Details</div>
             <div class='panel-body'>
-                <div class="form-horizontal" >
+                <div class="form-horizontal">
                     <!--text-->
                     <div class='form-group'>
-                        <div class="col-md-12">
-                            <label class='form-label'>Company Name:</label>
-                        </div>
-                        <div class='col-md-12'>
-                            <input type='text' class='form-control' name="companyName" formControlName="companyName" />
+                        <div class="col-md-12" [ngClass]="{'has-error' : work.get('companyName').invalid && work.get('companyName').touched}">
+                            <label class='control-label'>*Company Name:</label>
+                            <div>
+                                <input type='text' class='form-control' formControlName="companyName" />
+                            </div>
+                            <span *ngIf="(work.get('companyName').invalid && work.get('companyName').touched)" class="has-error help-block"> Company Name is Required.</span>
                         </div>
                     </div>
                     <!--end-->
@@ -18,21 +19,10 @@
                     <!--text-->
                     <div class='form-group'>
                         <div class="col-md-12">
-                            <label class='form-label'>Job Title:</label>
-                        </div>
-                        <div class='col-md-12'>
-                            <input type='text' class='form-control' name="jobTitle" formControlName="jobTitle"  />
-                        </div>
-                    </div>
-                    <!--end-->
-
-                    <!--text-->
-                    <div class='form-group'>
-                        <div class="col-md-12">
-                            <label class='form-label'>Job Role:</label>
-                        </div>
-                        <div class='col-md-12'>
-                            <input type='text' class='form-control' name="jobRole" formControlName="jobRole"/>
+                            <label class='control-label'>Job Title:</label>
+                            <div>
+                                <input type='text' class='form-control' name="jobTitle" formControlName="jobTitle" />
+                            </div>
                         </div>
                     </div>
                     <!--end-->
@@ -40,30 +30,42 @@
                     <!--text-->
                     <div class='form-group'>
                         <div class="col-md-12">
-                            <label class='form-label'>Company Size:</label>
+                            <label class='control-label'>Job Role:</label>
+
+                            <div>
+                                <input type='text' class='form-control' name="jobRole" formControlName="jobRole" />
+                            </div>
                         </div>
-                        <div class='col-md-12'>
-                            <input type='text' class='form-control' name="companySize" formControlName="companySize" />
+                    </div>
+                    <!--end-->
+
+                    <!--text-->
+                    <div class='form-group'>
+                        <div class="col-md-12">
+                            <label class='control-label'>Company Size:</label>
+
+                            <div>
+                                <input type='text' class='form-control' name="companySize" formControlName="companySize" />
+                            </div>
                         </div>
                     </div>
                     <!--end-->
                     <!--First Name-->
                     <div class='form-group' formGroupName="companyAddress">
-                        <div class="col-md-6">
+                        <div class="col-md-6" [ngClass]="{'has-error' : work.get('companyAddress.city').invalid && work.get('companyAddress.city').touched}">
+                            <label class='control-label'>*City:</label>
                             <div>
-                                <label class='control-label'>City:</label>
+                                <input type='text' class='form-control' name="city" formControlName="city" />
                             </div>
-                            <div>
-                                <input type='text' class='form-control' name="city" formControlName="city"  />
-                            </div>
+                            <span *ngIf="(work.get('companyAddress.city').invalid && work.get('companyAddress.city').touched)" class="has-error help-block"> Company Name is Required.</span>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" [ngClass]="{'has-error' : work.get('companyAddress.zipCode').invalid && work.get('companyAddress.zipCode').touched}">
+
+                            <label class='control-label'>*Zip Code:</label>
                             <div>
-                                <label class='control-label'>Zip Code:</label>
+                                <input type='text' class='form-control' name="zipCode" formControlName="zipCode" />
                             </div>
-                            <div>
-                                <input type='text' class='form-control' name="zipCode" formControlName="zipCode"/>
-                            </div>
+                            <span *ngIf="(work.get('companyAddress.zipCode').invalid && work.get('companyAddress.zipCode').touched)" class="has-error help-block"> Company Name is Required.</span>
                         </div>
                     </div>
                     <!--end-->
@@ -75,7 +77,10 @@
     </div>
     <div class="col-md-2">
         <div class='form-group'>
-            <input type="submit" class='form-control btn btn-primary' value="Save & Next >>"  />
+            <input type="submit" class='form-control btn btn-primary' [disabled]= "work.invalid" value="Save & Next >>" />
         </div>
     </div>
+
+
+    <p>{{work.get('companyAddress.zipCode').zip}}</p>
 </form>

@@ -10,34 +10,33 @@ form status : {{userForm.valid}}
                 <div class="form-horizontal">
                     <!--email-->
                     <div class='form-group'>
-                        <div class="col-md-12">
-                            <label class='form-label' for="email">Email:</label>
+                       <div class='col-md-12' [ngClass] = '{"has-error" :emailid.invalid && emailid.touched }'>
+                            <label class='control-label' for="email">*Email:</label>
+                        
+                        <div >
+                            <input type='email' class='form-control' required id="email" #emailid="ngModel" name="emailid" [(ngModel)]="user.emailId" />
                         </div>
-                        <div class='col-md-12'>
-                            <input type='email' class='form-control' required id="email" #email="ngModel" name="emailid" [(ngModel)]="user.emailId" />
-                        </div>
-                        <div [hidden]="email.valid || email.pristine" class="has-error">
-                            email is not valid
-                        </div>
+                           <span *ngIf="(emailid.invalid && emailid.touched)" class="has-error  help-block"> email is required </span>
+                       </div>
                     </div>
                     <!--end-->
                     <!--First Name-->
                     <div class='form-group'>
-                        <div class="col-md-6">
+                        <div class="col-md-6" [ngClass] = '{"has-error" :firstName.invalid && firstName.touched }'>
+                                <label class='control-label'>*First Name:</label>
                             <div>
-                                <label class='control-label'>First Name:</label>
+                                <input type='text' class='form-control' required name="firstName" #firstName = "ngModel" [(ngModel)]="user.firstName" />
                             </div>
-                            <div>
-                                <input type='text' class='form-control' name="firstName" [(ngModel)]="user.firstName" />
-                            </div>
+                            <span *ngIf="(firstName.invalid && firstName.touched)" class="has-error  help-block"> First Name is required </span>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6" [ngClass] = '{"has-error" :lastName.invalid && lastName.touched }'>
                             <div>
-                                <label class='control-label'>Last Name:</label>
+                                <label class='control-label'>*Last Name:</label>
                             </div>
                             <div>
-                                <input type='text' class='form-control' name="lastName" [(ngModel)]="user.lastName" />
+                                <input type='text' class='form-control' required name="lastName" #lastName="ngModel" [(ngModel)]="user.lastName" />
                             </div>
+                            <span *ngIf="(lastName.invalid && lastName.touched)" class="has-error  help-block"> First Name is required </span>
                         </div>
                     </div>
                     <!--end-->
@@ -77,7 +76,7 @@ form status : {{userForm.valid}}
 
     <div class="col-md-2">
         <div class='form-group'>
-            <input type="submit" class='form-control btn btn-primary' [disabled] = "userForm.valid"  value="Save & Next >>" />
+            <button class='form-control btn btn-primary' [disabled] = "userForm.invalid"  value="Save & Next >>" >Save & Next >></button>
         </div>
     </div>
 </form>

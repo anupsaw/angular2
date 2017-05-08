@@ -59,7 +59,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}\\server.js"
+            "program": "${workspaceRoot}\\node-server-code\\server.js"
         }
     ]
 }
