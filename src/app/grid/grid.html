@@ -6,11 +6,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let row of gridRows">
-                <td *ngFor="let config of gridConfig">
-                    {{row[config.fieldName]}}
+            <div *ngIf="gridRows.length !==0">
+                <tr *ngFor="let row of gridRows">
+                    <td *ngFor="let config of gridConfig">
+                        {{row[config.fieldName]}}
+                    </td>
+                </tr>
+            </div>
+            <tr *ngIf="gridRows.length == 0">
+                
+                <td [attr.colspan]="gridConfig.length">
+                    No Data found to show.
                 </td>
-
             </tr>
         </tbody>
 

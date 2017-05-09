@@ -13,10 +13,13 @@ export class AppGridComponent {
         { displayName: 'Full Name', fieldName: 'fullName' },
         { displayName: 'Email Id', fieldName: 'emailId' }
     ]
-   @Input()  public gridRows: Array<any> = [
+   @Input()  public gridRows: Array<any> = [ { fullName: 'Anup Saw', emailId: 'anupsaw@gmail.com' },
+        { fullName: 'Priyanka Saw', emailId: 'priyankasaw@gmail.com' }];
+   /* [
         { fullName: 'Anup Saw', emailId: 'anupsaw@gmail.com' },
         { fullName: 'Priyanka Saw', emailId: 'priyankasaw@gmail.com' }
     ]
+    */
 
     public test = { name: 'Anup' };
 

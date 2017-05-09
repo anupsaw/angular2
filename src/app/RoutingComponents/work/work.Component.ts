@@ -26,6 +26,7 @@ export class WorkComponent {
 
 
     public id: number;
+    public updateWork: boolean;
     public work = new FormGroup({
         companyName: new FormControl('', Validators.required),
         jobTitle: new FormControl(),
@@ -33,7 +34,7 @@ export class WorkComponent {
         companySize: new FormControl(),
         companyAddress: new FormGroup({
             city: new FormControl('', Validators.required),
-            zipCode: new FormControl('', [Validators.required, Validators.maxLength(6),Validators.minLength(5), validateZipCode])
+            zipCode: new FormControl('', [Validators.required, Validators.maxLength(6), Validators.minLength(5), validateZipCode])
         }),
         id: new FormControl()
     })
@@ -42,7 +43,7 @@ export class WorkComponent {
     constructor(private _route: Router,
         private _dataService: DataService,
         private _routeData: ActivatedRoute,
-        private dataService:DataServerService
+        private dataService: DataServerService
     ) {
 
     }
@@ -50,17 +51,33 @@ export class WorkComponent {
 
     ngOnInit() {
         this._routeData.params.subscribe((work: WorkModel) => {
-            this._dataService.fetch('work', +work.id).subscribe((workData: any) => {
-                if (!_.isEmpty(workData)) { this.work.patchValue(workData); }
+            this.dataService.getData('work', work.id).subscribe((workData: any) => {
+                if (!_.isEmpty(workData)) {
+                    this.work.patchValue(workData);
+                    this.updateWork = true;
+                }
             });
-            this.id = +work.id;
+            //this.id = work.id;
         })
     }
 
 
     saveAndNext(model: any) {
-        let res = this._dataService.save('work', this.work.value);
-        if (res) this._route.navigate(['/address', this.id]);
+
+        let res;
+        if (this.updateWork) {
+            res = this.dataService.putData('work', this.work.value, this.work.get('id').value);
+
+        } else {
+            res = this.dataService.postData('work', this.work.value);
+
+        }
+
+        res.subscribe((data) => {
+            if (data) this._route.navigate(['/address', data.id]);
+        })
+
+
     }
 }
 
